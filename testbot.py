@@ -11,12 +11,21 @@ class MyQQBot(QQBot):
     mVersion = "0.02"
 
     def GeneralReply(self, msg):
-        message = msg.content.decode("utf-8")
+        message = msg.content.decode("utf-8").lower()
         if u"版本" in message or u"ver" in message:
             msg.Reply("么么哒，我的版本是" + self.mVersion)
             return True
         elif u"叫什么" in message or u"name" in message or u"名字" in message:
             msg.Reply("我叫小薇，您忠实的语言维基小秘书 [笑]")
+            return True
+        elif u"hello" in message or u"你好" in message or u"hi" in message:
+            msg.Reply("你好！小薇愿意为主人服务～")
+            return True
+        elif u"男朋友" or u"boyfriend" in message:
+            msg.Reply("人家害羞嘛～ 有机会私聊好吗？")
+            return True
+        elif u"漂亮" or u"美丽" in message:
+            msg.Reply("是吗？你眼光真好哦 ^_^")
             return True
         return False
 
