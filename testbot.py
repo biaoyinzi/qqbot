@@ -16,7 +16,7 @@ class MyQQBot(QQBot):
             msg.Reply("么么哒，我的版本是" + self.mVersion)
             return True
         elif u"叫什么" in message or u"name" in message or u"名字" in message:
-            msg.Reply("我叫小薇，您忠实的语言维基小秘书 [笑]")
+            msg.Reply("我叫小薇，您忠实的小秘书 [笑]")
             return True
         elif u"hello" in message or u"你好" in message or u"hi" in message:
             msg.Reply("你好！小薇愿意为主人服务～")
