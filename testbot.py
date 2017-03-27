@@ -24,7 +24,7 @@ class MyQQBot(QQBot):
         elif u"男朋友" in message or u"boyfriend" in message or u"气质" in message or u"少女" in message:
             msg.Reply("人家害羞嘛～ 有机会私聊好吗？")
             return True
-        elif u"漂亮" or u"美丽" in message:
+        elif u"漂亮" in message or u"美丽" in message:
             msg.Reply("是吗？你眼光真好哦 ^_^")
             return True
         return False
