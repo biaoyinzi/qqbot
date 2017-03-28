@@ -6,9 +6,12 @@ from qqbot import QQBot
 from qqbot.qqbotcls import QQMessage
 from qqbot.messagefactory import Message
 
+from langwiki.langwiki_resources import LangwikiResources
+
 class MyQQBot(QQBot):
     mMyName = u"@机器人小薇"
     mVersion = "0.02"
+    mLangwikiRes = LangwikiResources()
 
     def GeneralReply(self, msg):
         message = msg.content.decode("utf-8").lower()
@@ -34,16 +37,14 @@ class MyQQBot(QQBot):
         message = message.replace(self.mMyName, "").strip()
         if len(message) == 1:
             # dictionary call
-            msg.Reply(message.encode("utf-8") + ' 字典未上綫 抱歉 [囧]')
+            msg.Reply(self.mLangwikiRes.lookupHanzi(message).encode("utf-8"))
         elif not self.GeneralReply(msg):
             msg.Reply("小薇还看不懂，请以后再试 [笑]");
 
     def Process(self, msg):
         if (type(msg) is QQMessage):
             message = msg.content.decode("utf-8")
-            if message == u'hi' or u"你好" in message or u"ohayo" in message:
-                msg.Reply('么么哒，我是机器人小薇')
-            elif self.mMyName in message:
+            if self.mMyName in message:
                 return self.GroupAtMe(msg)
             elif message == '!!stop':
                 self.Stop(code=0)
