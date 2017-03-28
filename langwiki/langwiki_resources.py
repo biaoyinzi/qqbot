@@ -44,8 +44,11 @@ class LangwikiResources:
             return hanzi + u" 請讓小薇好好想想這個問題。。。（服务器快点啊）"
 
         res = json.loads(r.text)
-        answer = u"太好了，主人，小薇給您找到了答案～ "
-        answer += res["HTML"]
+        if "HTML" in res:
+            answer = u"太好了，主人，小薇給您找到了答案～ "
+            answer += res["HTML"]
+        else:
+            answer = u"嗚嗚，這個字小薇暫時想不起來了～ 請稍後再問我吧"
         return answer
 
     def lookupWord(self, word):
