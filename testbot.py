@@ -35,11 +35,28 @@ class MyQQBot(QQBot):
     def GroupAtMe(self, msg):
         message = msg.content.decode("utf-8")
         message = message.replace(self.mMyName, "").strip()
+        processed = False
         if len(message) == 1:
             # dictionary call
             msg.Reply(self.mLangwikiRes.lookupHanzi(message).encode("utf-8"))
-        elif not self.GeneralReply(msg):
-            msg.Reply("小薇还看不懂，请以后再试 [笑]");
+            return
+
+        smsg = message.encode("utf-8")
+        if smsg.startswith("manchu")# or smsg.startswith("滿") or smsg.startswith("满"):
+            if smsg.startswith("manchu"):
+                smsg = smsg[6:].strip()
+            if smsg.startswith("滿") or smsg.startswith("满"):
+                smsg = smsg[1:].strip()
+            mandef = self.mLangwikiRes.lookupManchu(smsg)
+            if mandef != None:
+                msg.Reply(mandef.encode("utf-8"))
+                return
+            else:
+                msg.Reply("抱歉，小薇没找到任何结果～")
+                return
+
+        if not self.GeneralReply(msg):
+            msg.Reply("小薇还看不懂，请以后再试 [笑]")
 
     def Process(self, msg):
         if (type(msg) is QQMessage):

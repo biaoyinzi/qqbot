@@ -51,5 +51,15 @@ class LangwikiResources:
             answer = u"嗚嗚，這個字小薇暫時想不起來了～ 請稍後再問我吧"
         return answer
 
-    def lookupWord(self, word):
-        return "err: not implemened"
+    def lookupManchu(self, manchu):
+        url = 'http://langwiki.org/tools/dict/manchu/query.php?manchu=' + manchu
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        res = json.loads(r.text)
+        if "HTML" in res:
+            answer = u"太好了，主人，小薇給您找到了答案～ \n【" + manchu + u"】"
+            answer += res["HTML"]
+            return answer
+        else:
+            return None
